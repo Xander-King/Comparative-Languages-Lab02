@@ -97,8 +97,10 @@
     (cond
 		((null? (cdr lst)) (list (car lst) (car lst)))
 		(else 
-			(let ((recsol (minandmax (cdr lst))) (first (car lst)))
-				(list (min first recsol) (max first recsol))))
+			(list (min (car lst) (car (minandmax (cdr lst))))
+				  (max (car lst) (cadr (minandmax (cdr lst))))
+			)
+		)
 	)
 )
 
@@ -115,7 +117,7 @@
 ; returns ((1 a) (2 b) (3 c) (4 d))
 	(cond 
 		((null? lst1) '())
-		(else (cons (cons (car lst1) (car lst2)) (zip (cdr lst1) (cdr lst2))))	
+		(else (cons (list (car lst1) (car lst2)) (zip (cdr lst1) (cdr lst2))))	
 	)
 )
 
