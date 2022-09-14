@@ -38,7 +38,11 @@
 )
 
 (define (numzeros lst) ; fill this in
-    0
+ (cond
+	((null? lst) 0)
+	((zero? (car lst)) (+ 1 (numzeros (cdr lst))))
+	(else (numzeros (cdr lst)))
+ )
 )
 
 (newline)
@@ -59,9 +63,12 @@
 )
 
 (define (allbutlast lst) 
+	(cond
+		((= (length lst) 1) '())
+		(else (cons (car lst) (allbutlast (cdr lst))))
+	)
 	; complete. return original list, but without the last element
 	; lst should never be empty (no need to check for that)
-	'() 
 )
 
 (newline)
@@ -87,8 +94,14 @@
 )
 
 (define (minandmax lst) ; fill this in. return (min, max)
-    '(0 0)
+    (cond
+		((null? (cdr lst)) (list (car lst) (car lst)))
+		(else 
+			(let ((recsol (minandmax (cdr lst))) (first (car lst)))
+				(list (min first recsol) (max first recsol))))
+	)
 )
+
 
 (newline)
 (display "Testing minandmax")(newline)
@@ -100,7 +113,10 @@
 (define (zip lst1 lst2) ; fill this in
 ; input is two simple lists of same length: (1 2 3 4) (a b c d)
 ; returns ((1 a) (2 b) (3 c) (4 d))
-   '()
+	(cond 
+		((null? lst1) '())
+		(else (cons (cons (car lst1) (car lst2)) (zip (cdr lst1) (cdr lst2))))	
+	)
 )
 
 (newline)
